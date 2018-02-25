@@ -3,6 +3,7 @@ acmart.pdf
 acmguide.pdf
 sample-*.pdf
 paper.pdf
+*-converted-to.pdf
 *.log
 *.aux
 *.cfg
