@@ -1,7 +1,7 @@
 \documentclass[sigconf]{acmart}
 
 \usepackage{booktabs} % For formal tables
-
+\usepackage{xspace}
 
 % Copyright
 \setcopyright{none}
@@ -39,35 +39,26 @@
 \settopmatter{printacmref=false, printfolios=false}
 
 \begin{document}
-\title{SIG Proceedings Paper in LaTeX Format}
+\newcommand{\name}{\emph{AMuSe}\xspace}
+
+\title{\name: An \underline{A}gile \underline{Mu}ltipath-TCP (MPTCP) \underline{S}ch\underline{e}duleR for Dual-Band 802.11ad/ac Wireless LANs}
 %\titlenote{Produces the permission block, and copyright information}
 %\subtitle{Extended Abstract}
 %\subtitlenote{The full version of the author's guide is available as \texttt{acmart.pdf} document}
 
+\author{Swetank Kumar Saha$^1$, Shivang Aggarwal$^1$, Dimitrios Koutsonikolas$^1$, Joerg Widmer$^2$}
+%\authornote{Dr.~Trovato insisted his name be first.}
+%\orcid{1234-5678-9012}
+\affiliation{%
+  \institution{$^1$University at Buffalo, The State University of New York, $^2$IMDEA Neworks Institute, Spain}
+  %\streetaddress{P.O. Box 1212}
+  %\city{Dublin}
+  %\state{Ohio}
+  %\postcode{43017-6221}
+}
+\email{{swetankk,shivanga,dimitrio}@buffalo.edu,joerg@imdea.org}
+
 \begin{comment}
-\author{Ben Trovato}
-\authornote{Dr.~Trovato insisted his name be first.}
-\orcid{1234-5678-9012}
-\affiliation{%
-  \institution{Institute for Clarity in Documentation}
-  \streetaddress{P.O. Box 1212}
-  \city{Dublin}
-  \state{Ohio}
-  \postcode{43017-6221}
-}
-\email{trovato@corporation.com}
-
-\author{G.K.M. Tobin}
-\authornote{The secretary disavows any knowledge of this author's actions.}
-\affiliation{%
-  \institution{Institute for Clarity in Documentation}
-  \streetaddress{P.O. Box 1212}
-  \city{Dublin}
-  \state{Ohio}
-  \postcode{43017-6221}
-}
-\email{webmaster@marysville-ohio.com}
-
 \author{Lars Th{\o}rv{\"a}ld}
 \authornote{This author is the
   one who did all the really hard work.}
