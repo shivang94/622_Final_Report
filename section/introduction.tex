@@ -1,0 +1,171 @@
+Millimeter-wave (mmWave) wireless is fast emerging as the prime
+candidate technology for providing multi-Gbps data rates in future wireless networks.
+%, WLANs and for fixed wireless access.
+% Although
+%different parts of the mmWave spectrum (both licensed and unlicensed)
+%are currently being explored by the industry, 
+The IEEE 802.11ad
+standard 
+%and its successor 802.11ay specifically target indoor
+%WLANs. 802.11ad 
+%utilizes the almost 7 GHz of unlicensed spectrum
+%centered around 60 GHz to 
+provides data rates of up to 6.7 Gbps. 
+It
+achieves this multi-fold increase over legacy WiFi through
+2GHz-wide channels.
+%ization (2.16 GHz, 13.5x wider compared to the 160
+%MHz of 802.11ac) and directional antennas.
+Multiple commercial devices (both APs and laptops) supporting the standard have been
+released over the past few years and the technology is already making
+its way into smartphones~\cite{peraso_802.11ad,asus_802.11ad}.
+
+Nonetheless, communication at mmWave frequencies faces fundamental
+challenges due to the high propagation and penetration loss. %Although 
+The use of directional transmissions 
+%overcomes the severe attenuation, it 
+makes
+links susceptible to disruption by human blockage and client
+mobility. 
+%While several recent works have explored ways of dealing with blockage and mobility, e.g., by
+%proposing efficient beamsteering techniques, link outages remain a
+%major challenge preventing 802.11ad from providing the seamless
+%connectivity that legacy WiFi does. 
+Even if PHY and MAC layer
+improvements (e.g.,~\cite{nitsche:infocom2015,haider:mobihoc2016,sur:nsdi2016,zhou:infocom2017}) result in faster beam steering and lower re-connection times in the future, any realistic
+indoor scenario is expected to contain enough dynamism
+%, in terms of
+%environmental and device mobility, 
+to cause a large number of
+re-connection events which will hurt application performance and
+result in poor user experience.
+% This issue is critical as
+%applications that are considered prime targets for the adoption of 
+%60 GHz technology typically cannot work with unreliable links that fail
+%frequently. 
+In addition, due to the mmWave channel characteristics, providing full coverage at 60 GHz 
+is extremely difficult and realistic deployments will most likely have some coverage gaps.
+%be ``spotty'', at least in the near future. As 60 GHz APs will be
+%with incremental deployment, one can expect to find areas in large
+%enterprise settings without 60 GHz coverage.
+
+In this work, we tackle the challenge of supporting the multi-Gbps
+throughput provided by the 60 GHz technology while still providing
+the reliability of legacy WiFi, which is the key for wide-spread adoption of 60 GHz WLANs.
+% Instead of choosing 802.11ac's
+%reliability over 802.11ad's performance or vice-versa, we propose
+%engaging both technologies simultaneously. 
+Using both 802.11ad and
+802.11ac interfaces simultaneously not only offers reliability by
+providing a fall-back option in case 60 GHz connectivity
+becomes unavailable but also allows a client to theoretically obtain
+the sum of the data rates offered by the two technologies. 
+%Recent commercial 802.11ad NICs~\cite{intel11ad, qca11ad} include an 802.11ac radio on the same chipset. 
+Commercial off-the-shelf (COTS)
+APs as well as client devices offer tri-band solutions with 2.4, 5, and 60 GHz
+interfaces~\cite{talon,netgear-x10} and thus such a multi-band approach is
+feasible with existing hardware.
+% without any extra hardware.
+
+%However, realizing such a combined 802.11ad-ac interface, made up of
+%two rather heterogeneous technologies, comes with it's own set of
+%challenges. For instance, such a bundling of interfaces needs to done
+%in a manner that is transparent to user applications without requiring
+%any changes to them. Also, since most applications rely on TCP as the
+%choice of transport protocol, any proposed solution needs to offer
+%reliable in-order-delivery end-to-end data transfer service.
+
+%A critical architecture choice 
+%towards such a solution 
+%is at which layer of the protocol stack to implement such a solution.
+We explore Multipath TCP (MPTCP)~\cite{ford:rfc6824}, a
+transport layer protocol that uses the 802.11ad and 802.11ac interfaces simultaneously to 
+achieve higher throughput when both networks are available and seamlessly falls back to 
+802.11ac in an application-transparent manner when the 802.11ad network becomes unavailable. 
+MPTCP's design as a transport layer solution
+%, as an
+%alternative to single-path TCP (SPTCP), 
+decouples it both from the
+application layer and the IP and MAC layers.
+%; thus, a solution
+%built around MPTCP can evolve independently from and work with any
+%future 802.11 standards in the 5 GHz or 60 GHz space (e.g., 802.11ax
+%or 802.11ay, respectively). 
+\begin{comment}
+In contrast, solutions that try to achieve
+a similar functionality at the MAC or lower layers, such as 802.11ad's
+Fast Session Transfer (FST)~\cite{80211ad}, are invariably tied to the
+802.11 specifications and hence are not future proof. More
+importantly, MPTCP by design provides the same guarantees to
+applications as single-path TCP (SPTCP) in terms of packet delivery and
+includes mechanisms to deal with issues such as packet re-ordering
+among different interfaces that would otherwise need to be
+addressed by any solution implemented at lower layers of the stack,
+thus avoiding an unnecessary duplication of functionality.
+\end{comment}
+
+In spite of these attractive features, using MPTCP in multi-band 
+WLANs is far from straightforward. A large number of recent
+studies investigated the performance of MPTCP in scenarios combining
+WiFi and cellular (3G/LTE)
+networks~\cite{raiciu:nsdi2012,chen:imc2013,ferlin:globecom2014,deng:imc2014,saha:mobiwac2017})
+and showed that the protocol performs poorly over heterogeneous paths,
+due to interactions among out of order TCP packets, scheduling
+decisions, congestion control, and limited receiver buffer size. 
+%Given
+%the large bandwidth disparity between sub-6GHz and 60 GHz WiFi, it
+%is likely that MPTCP will suffer from similar problems in these
+%networks. 
+%Recent works that studied MPTCP performance in dual band 5/60 GHz
+%WLANs~\cite{sur:mobicom2017,nguyen:vtc2017,saha:mobicomposter2017}
+%showed that using MPTCP often results in lower performance than using
+%the 802.11ad interface alone, and 
+The authors in~\cite{sur:mobicom2017,nguyen:vtc2017} even argue that the two
+radios should never be used simultaneously.
+
+In contrast, to the best of our knowledge, our work is the first to 
+show that the use of MPTCP is not just a viable but even a very promising solution
+towards dual-band 5/60 GHz WLANs. We conduct an extensive experimental
+study using COTS APs and laptops with the goal 
+%of not only exploring
+%the performance of MPTCP in dual-band 802.11ad/ac WLANs, but also
+understanding the causes of the observed performance and uncovering the
+pitfalls of the current MPTCP implementation in this new setting. Our
+study reveals that a few recently introduced optimizations in the
+MPTCP scheduler, while effective in scenarios
+involving WiFi/cellular interfaces, result in suboptimal performance in 802.11ad/ac
+scenarios, and disabling them yields near
+optimal throughputs under baseline, static scenarios. However,
+realistic dynamic environments, e.g., involving contention in the 5 GHz
+band or blockage of the 802.11ad link, are extremely challenging for
+the current MPTCP architecture and result in severe performance
+degradation. We then design and implement \name, a new
+MPTCP scheduler that addresses the root-cause of the performance
+degradation and allows MPTCP to achieve near-optimal throughput under
+a wide variety of dynamic use cases. Our evaluation in real
+indoor WLAN scenarios shows that \name can achieve up to \textbf{2.5x}
+throughput improvement and can reduce application-level delay by several
+10s of seconds compared to the default MPTCP.
+
+%We show that how MPTCP's architecture and optimizations introduced to
+%it over the years, often results in scenarios where MPTCP performs
+%sub-optimally and could even result in performance worse than using
+%SPTCP over the fastest subflow.
+
+Our work makes the following contributions:
+\\
+(1) We conduct an extensive measurement study to understand MPTCP
+performance in dual-band 802.11ad/ac WLANs with COTS devices under
+realistic settings.
+%\\
+%(2) We develop a comprehensive set of tools to instrument MPTCP
+%components, like the queues and scheduler, that help us understand the
+%root-cause of the performance issues. We will make these tools
+%publicly available for others to further improve MPTCP in new settings.
+\\
+(2) We design and implement \name, a novel MPTCP scheduler, that
+addresses the identified challenges.
+\\
+(3) We evaluate \name in realistic WLAN settings and show that it
+offers significant throughput and delay improvements over the default
+MPTCP scheduler.
