@@ -9,22 +9,22 @@ detail how the traffic distribution between the subflows impacts MPTCP performan
 design an MPTCP scheduler \emph{FixedRatio} that performs packet assignment based on
 a user-defined ratio.
 
-\begin{figure*}[h]
+\begin{figure}[h]
     \centering
-    \subfigure[Throughput with different ratios.] {
-        \includegraphics[scale=0.28]{contention/ratio_tput_bar.pdf}
+    \subfigure[Throughput vs. ratios] {
+        \includegraphics[scale=0.21]{contention/ratio_tput_bar.pdf}
         \label{fig:ratio_tput}
     }\hfill
-    \subfigure[Delay in the \emph{ofo-queue} for different $Pkts_{ad}$.] {
-        \includegraphics[scale=0.28]{contention/ratio_ofo_delay.pdf}
+    \subfigure[Delay (\emph{ofo-queue}) for different $Pkts_{ad}$] {
+        \includegraphics[scale=0.21]{contention/ratio_ofo_delay.pdf}
         \label{fig:ratio_tput_ofo_delay}
-    }\hfill
-    \subfigure[Length of the \emph{ofo-queue} for different $Pkts_{ad}$.] {
-        \includegraphics[scale=0.28]{contention/ratio_ofo_q_len.pdf}
-        \label{fig:ratio_tput_ofo_len}
-    }
+    }%\hfill
+    %\subfigure[Length of the \emph{ofo-queue} for different $Pkts_{ad}$.] {
+    %    \includegraphics[scale=0.28]{contention/ratio_ofo_q_len.pdf}
+    %    \label{fig:ratio_tput_ofo_len}
+    %}
     \caption{Impact of packet scheduling decisions.}
-\end{figure*}
+\end{figure}
 
 Fig.~\ref{fig:ratio_tput} plots the MPTCP throughput against the
 number of packets assigned to the 802.11ad subflow ($Pkts_{ad}$) out
@@ -49,7 +49,9 @@ experienced by bytes in the \emph{ofo-queue}, we observe that
 the $Pkts_{ad}=77$ value (that results in highest throughput) indeed
 yields the lowest delay. Moreover, we observe that in general the
 $Pkts_{ad}$ values that result in high delay are the ones that result
-in lower throughput and vice-versa. We also plot the CDF of the
+in lower throughput and vice-versa. 
+\if 0
+We also plot the CDF of the
 occupancy of the \emph{ofo-queue} under different $Pkts_{ad}$
 values in fig. \ref{fig:ratio_tput_ofo_len}. Here, one might expect to
 see a similar behavior as the delay where the queue lengths are smaller
@@ -63,7 +65,7 @@ extreme $Pkts_{ad}$ values (5, 95, 15, 85 15), although sub-optimal
 throughput-wise, have queue lengths smaller than the one of the $Pkts_{ad}=77$ case.
 Excluding the extremes, other $Pkts_{ad}$ values show a general trend of
 having larger queues in conjunction with lower throughputs values.
-
+\fi
 \noindent\textbf{Throughput-optimal ratio.} The reason $Pkts_{ad}=77$ results in optimal throughput is that
 the underlying packet-distribution ratio imposed by this assignment
 $Pkts_{ratio}=Pkts_{ac}/Pkts_{ad}=23/77=0.29$ is nearly identical to
