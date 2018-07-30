@@ -9,5 +9,23 @@
 \section{Performance Issues}
 \input{section/issues}
 
+\begin{figure*}[ht]
+    \centering
+    \subfigure[Network Scan (Timeline)] {
+        \includegraphics[scale=0.25]{NetworkManagerScan/timeline_fix.pdf}
+        \label{fig:scan_fixed}
+    }\hfill
+    \subfigure[\emph{minRTT} vs. \emph{FixedRatio}] {
+        \includegraphics[scale=0.32]{contention/barplot.pdf}
+        \label{fig:contention_barplot}
+    }\hfill
+    \subfigure[802.11ad Blockage: Improved recovery time] {
+        \includegraphics[scale=0.25]{blockage/blockage_fixed.pdf}
+        \label{fig:blockage_recovery}
+    }
+    \vspace{-0.15in}
+    \caption{\name}
+    \vspace{-0.1in}
+\end{figure*}
 \section{\name: Design and Implementation}
 \input{section/system}
