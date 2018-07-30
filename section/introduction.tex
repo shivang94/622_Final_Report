@@ -13,7 +13,7 @@ standard
 provides data rates of up to 6.7 Gbps. 
 It
 achieves this multi-fold increase over legacy WiFi through
-2GHz-wide channels.
+2 GHz-wide channels.
 %ization (2.16 GHz, 13.5x wider compared to the 160
 %MHz of 802.11ac) and directional antennas.
 Multiple commercial devices (both APs and laptops) supporting the standard have been
@@ -105,14 +105,13 @@ addressed by any solution implemented at lower layers of the stack,
 thus avoiding an unnecessary duplication of functionality.
 \end{comment}
 
-In spite of these attractive features, using MPTCP in multi-band 
-WLANs is far from straightforward. A large number of recent
-studies investigated the performance of MPTCP in scenarios combining
-WiFi and cellular (3G/LTE)
-networks~\cite{raiciu:nsdi2012,saha:mobiwac2017})
-and showed that the protocol performs poorly over heterogeneous paths,
-due to interactions among out of order TCP packets, scheduling
-decisions, congestion control, and limited receiver buffer size. 
+In spite of these attractive features, using MPTCP in multi-band WLANs
+is far from straightforward. A large number of recent studies
+investigated the performance of MPTCP in scenarios combining WiFi and
+cellular (3G/LTE) networks~\cite{raiciu:nsdi2012,saha:mobiwac2017} and showed that the
+protocol performs poorly over heterogeneous paths, due to interactions
+among out of order TCP packets, scheduling decisions, congestion
+control, and limited receiver buffer size.
 %Given
 %the large bandwidth disparity between sub-6GHz and 60 GHz WiFi, it
 %is likely that MPTCP will suffer from similar problems in these
@@ -126,11 +125,11 @@ radios should never be used simultaneously.
 
 In contrast, to the best of our knowledge, our work is the first to 
 show that the use of MPTCP is not just a viable but even a very promising solution
-towards dual-band 5/60 GHz WLANs. We conduct an extensive experimental
+towards dual-band 5/60 GHz WLANs. We conduct an experimental
 study using COTS APs and laptops with the goal 
 %of not only exploring
 %the performance of MPTCP in dual-band 802.11ad/ac WLANs, but also
-understanding the causes of the observed performance and uncovering the
+of understanding the causes of the observed performance and uncovering the
 pitfalls of the current MPTCP implementation in this new setting.
 Our study reveals that 
 %a few recently introduced optimizations in the

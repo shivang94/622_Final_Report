@@ -1,21 +1,23 @@
 We first experimented with four congestion control algorithms available in the
 Linux MPTCP implementation: \emph{Cubic} (decoupled), \emph{Lia}, 
 \emph{Olia}, and \emph{Balia} under backlogged
-traffic and found that for each of the four algorithms, \textit{MPTCP can indeed achieve 
-performance very close to the expected sum} (at least greater than 96\% and up to 99\%). So,
- next we turn our attention to another key MPTCP component: the \textbf{packet-scheduler},
-responsible for the distribution of application traffic among the subflows. To understand in 
-detail how the traffic distribution between the subflows impacts MPTCP performance, we 
-design an MPTCP scheduler \emph{FixedRatio} that performs packet assignment based on
-a user-defined ratio.
+traffic and found that for each of the four algorithms, \textit{MPTCP
+can indeed achieve performance very close to the expected sum} (at
+least greater than 96\% and up to 99\%). We next turn our attention to
+another key MPTCP component: the \textbf{packet-scheduler},
+responsible for the distribution of application traffic among the
+subflows. To understand in detail how the traffic distribution between
+the subflows impacts MPTCP performance, we design an MPTCP
+scheduler \emph{FixedRatio} that performs packet assignment based on a
+user-defined ratio.
 
-\begin{figure}[h]
+\begin{figure}[t]
     \centering
-    \subfigure[Throughput vs. ratios] {
+    \subfigure[Throughput vs. packet ratio.] {
         \includegraphics[scale=0.2]{contention/ratio_tput_bar.pdf}
         \label{fig:ratio_tput}
     }\hfill
-    \subfigure[Delay (\emph{ofo-queue}) for different $Pkts_{ad}$] {
+    \subfigure[Delay (\emph{ofo-queue}) for different $Pkts_{ad}$.] {
         \includegraphics[scale=0.2]{contention/ratio_ofo_delay.pdf}
         \label{fig:ratio_tput_ofo_delay}
     }%\hfill
@@ -23,9 +25,9 @@ a user-defined ratio.
     %    \includegraphics[scale=0.28]{contention/ratio_ofo_q_len.pdf}
     %    \label{fig:ratio_tput_ofo_len}
     %}
-    \vspace{-0.15in}
+    \vspace{-0.2in}
     \caption{Impact of packet scheduling decisions.}
-    \vspace{-0.1in}
+    \vspace{-0.15in}
 \end{figure}
 
 Fig.~\ref{fig:ratio_tput} plots the MPTCP throughput against the
@@ -77,6 +79,6 @@ $Tput_{ratio}=Tput_{ac}/Tput_{ad}=500/1600=0.31$. Assigning packets in
 this very specific ratio minimizes the chance of packets arriving
 out-of-order at the meta-level MPTCP buffers/queues. Note that
 although in-order delivery of packets within a subflow (intra-subflow)
-is guaranteed because of SPTCP operation at the subflow level,
+is guaranteed because of single path TCP (SPTCP) operation at the subflow level,
 global in-order delivery among all subflows (inter-flow) needs
 to be achieved through re-ordering at the meta-level.

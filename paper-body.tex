@@ -11,21 +11,42 @@
 
 \begin{figure*}[ht]
     \centering
-    \subfigure[Network Scan (Timeline)] {
+    \subfigure[Network scan: Throughput timeline.] {
+        \includegraphics[scale=0.23]{NetworkManagerScan/timeline_no_fix.pdf}
+        \label{fig:scan_issue}
+    }\hfill
+    \subfigure[802.11ac contention: Timeline showing throughput drop during contention.] {
+        \includegraphics[scale=0.23]{contention/timeline.pdf}
+        \label{fig:contention_timeline}
+    }\hfill
+    \subfigure[802.11ad blockage: 802.11ad throughput drop after re-connection.] {
+        \includegraphics[scale=0.23]{blockage/blockage_tput_drop.pdf}
+        \label{fig:blockage_tput_drop}
+    }
+    \vspace{-0.15in}
+    \caption{Performance issues.}
+    \vspace{-0.1in}
+\end{figure*}
+
+\begin{figure*}[ht]
+    \centering
+    \subfigure[Network Scan (Timeline).] {
         \includegraphics[scale=0.25]{NetworkManagerScan/timeline_fix.pdf}
         \label{fig:scan_fixed}
     }\hfill
-    \subfigure[\emph{minRTT} vs. \emph{FixedRatio}] {
+    \subfigure[\emph{minRTT} vs. \emph{FixedRatio}.] {
         \includegraphics[scale=0.32]{contention/barplot.pdf}
         \label{fig:contention_barplot}
     }\hfill
-    \subfigure[802.11ad Blockage: Improved recovery time] {
+    \subfigure[802.11ad Blockage: Improved recovery time.] {
         \includegraphics[scale=0.25]{blockage/blockage_fixed.pdf}
         \label{fig:blockage_recovery}
     }
     \vspace{-0.15in}
-    \caption{\name}
+    \caption{\name.}
     \vspace{-0.1in}
 \end{figure*}
+
+
 \section{\name: Design and Implementation}
 \input{section/system}
