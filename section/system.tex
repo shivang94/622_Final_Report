@@ -1,3 +1,22 @@
+\begin{figure*}[h]
+    \centering
+    \subfigure[Network Scan (Timeline)] {
+        \includegraphics[scale=0.27]{NetworkManagerScan/timeline_fix.pdf}
+        \label{fig:scan_fixed}
+    }\hfill
+    \subfigure[\emph{minRTT} vs. \emph{FixedRatio}] {
+        \includegraphics[scale=0.34]{contention/barplot.pdf}
+        \label{fig:contention_barplot}
+    }\hfill
+    \subfigure[802.11ad Blockage: Improved recovery time] {
+        \includegraphics[scale=0.27]{blockage/blockage_fixed.pdf}
+        \label{fig:blockage_recovery}
+    }
+    \vspace{-0.15in}
+    \caption{\name}
+    \vspace{-0.1in}
+\end{figure*}
+
 \noindent\textbf{\name-SCAN} arbitrates the network scan requests generated
 from the user space and disables the scheduling of packets to the
 subflow where the request has been made for the duration of the
@@ -6,10 +25,13 @@ enough to prevent packets from being held-up in the TCP queues or at
 any of the buffers in the lower layers of the network stack. We thus
 adopt a two-step approach, where \name: (1) stops the assignment of
 packets to subflow about to undertake scanning and (2) waits for the
-subflow-level \emph{send-queue} to be emptied out. Fig.~\ref{fig:scan_fixed_bar}
-plots the MPTCP throughput with and without the \name-SCAN fix,
-showing that on average it improves from 700 Mbps to 1650 Mbps
-(\textbf{2.2x} gain).
+subflow-level \emph{send-queue} to be emptied out. Fig.~\ref{fig:scan_fixed} shows 
+a timeline consisting of 802.11ac scan (marked as "802.11ac scan") but with \name's 
+network scan management solution applied during the scan period. We can clearly see (compared
+to the scan period in Fig.~\ref{fig:scan_issue}) that the 802.11ad
+throughput remains unaffected during the scan interval. We repeat the
+measurements several times with and without \name-SCAN fix and found 
+that on average it improves from 700 Mbps to 1650 Mbps (\textbf{2.2x} gain).
 \\
 \noindent\textbf{\name-CONTENTION} leverages our findings regarding the 
 existence of a unique MPTCP throughput-optimal ratio, given subflow throughput values. The 
@@ -35,7 +57,7 @@ equal to one. As a result, the scheduler is unable to schedule any new
 packets on 802.11ad subflow as the \emph{cwnd} is reported as being
 full. In order to overcome this, \name uses the TCP's window recovery
 mechanism to restore the \emph{cwnd} to the value just before loss the
-event. In contrast to Fig.~\ref{fig:blockage_delay}, where MPTCP resumed traffic on the
+event. In contrast to Fig.~\ref{fig:blockage_tput_drop}, where MPTCP resumed traffic on the
 802.11ad subflow after a 20 s delay, with \name engaged (fig. \ref{fig:blockage_recovery}) 
 MPTCP starts using the 802.11ad interface in less than 1s after link re-establishment. This
 is a vast reduction in delay for resuming traffic on the subflow. In a
