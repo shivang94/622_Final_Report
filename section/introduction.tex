@@ -17,9 +17,9 @@ achieves this multi-fold increase over legacy WiFi through
 %ization (2.16 GHz, 13.5x wider compared to the 160
 %MHz of 802.11ac) and directional antennas.
 Multiple commercial devices (both APs and laptops) supporting the standard have been
-released over the past few years and the technology is already making
-its way into smartphones.
-%~\cite{peraso_802.11ad,asus_802.11ad}.
+released over the past few years. 
+%and the technology is already making
+%its way into smartphones. ~\cite{peraso_802.11ad,asus_802.11ad}.
 
 Nonetheless, communication at mmWave frequencies faces fundamental
 challenges due to the high propagation and penetration loss. %Although 
@@ -33,7 +33,7 @@ mobility.
 %major challenge preventing 802.11ad from providing the seamless
 %connectivity that legacy WiFi does. 
 Even if PHY and MAC layer
-improvements (e.g.,~\cite{nitsche:infocom2015,haider:mobihoc2016,sur:nsdi2016,zhou:infocom2017}) may result in faster beam steering and lower re-connection times in the future, any realistic
+improvements (e.g.,~\cite{nitsche:infocom2015,sur:nsdi2016}) may result in faster beam steering and lower re-connection times in the future, any realistic
 indoor scenario is expected to contain enough dynamism
 %, in terms of
 %environmental and device mobility, 
@@ -44,8 +44,8 @@ result in poor user experience.
 %applications that are considered prime targets for the adoption of 
 %60 GHz technology typically cannot work with unreliable links that fail
 %frequently. 
-In addition, due to the mmWave channel characteristics, providing full coverage at 60 GHz 
-is extremely difficult and realistic deployments will most likely have some coverage gaps.
+%In addition, due to the mmWave channel characteristics, providing full coverage at 60 GHz 
+%is extremely difficult and realistic deployments will most likely have some coverage gaps.
 %be ``spotty'', at least in the near future. As 60 GHz APs will be
 %with incremental deployment, one can expect to find areas in large
 %enterprise settings without 60 GHz coverage.
@@ -109,7 +109,7 @@ In spite of these attractive features, using MPTCP in multi-band
 WLANs is far from straightforward. A large number of recent
 studies investigated the performance of MPTCP in scenarios combining
 WiFi and cellular (3G/LTE)
-networks~\cite{raiciu:nsdi2012,chen:imc2013,ferlin:globecom2014,deng:imc2014,saha:mobiwac2017})
+networks~\cite{raiciu:nsdi2012,saha:mobiwac2017})
 and showed that the protocol performs poorly over heterogeneous paths,
 due to interactions among out of order TCP packets, scheduling
 decisions, congestion control, and limited receiver buffer size. 
@@ -131,13 +131,14 @@ study using COTS APs and laptops with the goal
 %of not only exploring
 %the performance of MPTCP in dual-band 802.11ad/ac WLANs, but also
 understanding the causes of the observed performance and uncovering the
-pitfalls of the current MPTCP implementation in this new setting. Our
-study reveals that a few recently introduced optimizations in the
-MPTCP scheduler, while effective in scenarios
-involving WiFi/cellular interfaces, result in suboptimal performance in 802.11ad/ac
-scenarios, and disabling them yields near
-optimal throughputs under baseline, static scenarios. However,
-realistic dynamic environments, e.g., involving contention in the 5 GHz
+pitfalls of the current MPTCP implementation in this new setting.
+Our study reveals that 
+%a few recently introduced optimizations in the
+%MPTCP scheduler, while effective in scenarios
+%involving WiFi/cellular interfaces, result in suboptimal performance in 802.11ad/ac
+%scenarios, and disabling them yields near
+MPTCP can provide optimal throughputs under baseline, static scenarios.
+ However, realistic dynamic environments, e.g., involving contention in the 5 GHz
 band or blockage of the 802.11ad link, are extremely challenging for
 the current MPTCP architecture and result in severe performance
 degradation. We then design and implement \name, a new
@@ -147,12 +148,11 @@ a wide variety of dynamic use cases. Our evaluation in real
 indoor WLAN scenarios shows that \name can achieve up to \textbf{2.5x}
 throughput improvement and can reduce application-level delay by several
 10s of seconds compared to the default MPTCP.
-
 %We show that how MPTCP's architecture and optimizations introduced to
 %it over the years, often results in scenarios where MPTCP performs
 %sub-optimally and could even result in performance worse than using
 %SPTCP over the fastest subflow.
-
+\if 0
 Our work makes the following contributions:
 \\
 (1) We conduct an extensive measurement study to understand MPTCP
@@ -170,3 +170,4 @@ addresses the identified challenges.
 (3) We evaluate \name in realistic WLAN settings and show that it
 offers significant throughput and delay improvements over the default
 MPTCP scheduler.
+\fi

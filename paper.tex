@@ -116,20 +116,19 @@
 \renewcommand\footnotetextcopyrightpermission[1]{}
 
 \begin{abstract}
-802.11ad links, using 2.16 GHz wide channels can povide data rates 
+Utilizing 2.16 GHz wide channels 802.11ad links can povide data rates 
 up to 7.2 Gbps but remain highly susceptible to blockage and disconnection
 due to mobility. Legacy 802.11ac/n links, on the other hand, provide
 much lower rates but are robust even under dynamic scenarios. In this work,
- we look at using Multipath-TCP (MPTCP) to take advantage of both 802.11ad
-and 802.11ac interfaces by engaging them simultaneously for performance
-speed-up and performing seamless switching for improved reliability. Our
+ we look at using Multipath-TCP (MPTCP) to engage both 802.11ad
+and 802.11ac interfaces simultaneously for performance
+speed-up and improved reliability through seamless switching. Our
 extensive measurements, however, show that vanilla MPTCP can achieve these
 goals only under static conditions but may often result in performance worse
 than the faster of the two interfaces under many dynamic scenarios. We implement 
 a new MPTCP scheduler \name to address such cases and allow MPTCP to perform near-optimally
 under all scenarios. Our evaluation shows that \name can boost performance by up to
-2.5x and accelerate traffic stream re-establishment by 10s of seconds for the interface
-experiencing disruption.
+2.5x and accelerate traffic stream re-establishment by 10s of seconds.
 \end{abstract}
 
 \begin{comment}

@@ -70,8 +70,7 @@ restore the \emph{cwnd} to the value before the loss event. Since no
 packets are being directed to the 802.11ad subflow, only a subflow-level re-transmission 
 of the 802.11ad subflow can trigger the transmission of an ACK on the receiver side. However, 
 multiple timeout-based losses during the blockage period can lead to excessively 
-high retransmission timeouts, and consequently to long delays before an ACK is received after 
-reconnection.
+high retransmission timeouts, and consequently to long delays before an ACK is received.
 \\
 (ii) On resumption, 802.11ad flow starts with a \emph{cwnd} and
 \emph{ssthresh} that are half of their pre-loss values. Fig. \ref{fig:blockage_tput_drop} shows 
