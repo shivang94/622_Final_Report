@@ -1,4 +1,4 @@
-\documentclass[sigconf]{acmart}
+\documentclass[10pt,sigconf]{acmart}
 
 \usepackage{booktabs} % For formal tables
 \usepackage{xspace}
@@ -6,10 +6,10 @@
 \usepackage{graphicx}
 
 % Copyright
-\setcopyright{none}
+%\setcopyright{none}
 %\setcopyright{acmcopyright}
 %\setcopyright{acmlicensed}
-%\setcopyright{rightsretained}
+\setcopyright{rightsretained}
 %\setcopyright{usgov}
 %\setcopyright{usgovmixed}
 %\setcopyright{cagov}
@@ -17,33 +17,37 @@
 
 
 % DOI
-\acmDOI{10.475/123_4}
+%\acmDOI{10.475/123_4}
 
 % ISBN
-\acmISBN{123-4567-24-567/08/06}
+%\acmISBN{123-4567-24-567/08/06}
 
 %Conference
-\acmConference[WOODSTOCK'97]{ACM Woodstock conference}{July 1997}{El Paso, Texas USA}
-\acmYear{1997}
-\copyrightyear{2016}
+%\acmConference[WOODSTOCK'97]{ACM Woodstock conference}{July 1997}{El Paso, Texas USA}
+%\acmYear{1997}
+%\copyrightyear{2016}
 
-
-\acmArticle{4}
-\acmPrice{15.00}
+%\acmArticle{4}
 
 % These commands are optional
 %\acmBooktitle{Transactions of the ACM Woodstock conference}
-\editor{Jennifer B. Sartor}
-\editor{Theo D'Hondt}
-\editor{Wolfgang De Meuter}
+%\editor{Jennifer B. Sartor}
+%\editor{Theo D'Hondt}
+%\editor{Wolfgang De Meuter}
 
-\fancyhead{}
-\settopmatter{printacmref=false, printfolios=false}
+\copyrightyear{2018}
+\acmYear{2018}
+\acmConference[MobiCom '18]{The 24th Annual International Conference on Mobile Computing and Networking}{October 29-November 2, 2018}{New Delhi, India}
+\acmBooktitle{The 24th Annual International Conference on Mobile Computing and Networking (MobiCom '18), October 29-November 2, 2018, New Delhi, India}
+\acmDOI{10.1145/3241539.3267755}
+\acmISBN{978-1-4503-5903-0/18/10}
+\acmPrice{}
 
 \begin{document}
+\fancyhead{}
 \newcommand{\name}{\emph{AMuSe}\xspace}
 
-\title{\name: An \underline{A}gile \underline{Mu}ltipath TCP \underline{S}ch\underline{e}duler for Dual-Band 802.11ad/ac Wireless LANs [SRC/Graduate]}
+\title{\name: An \underline{A}gile \underline{Mu}ltipath TCP \underline{S}ch\underline{e}duler for Dual-Band 802.11ad/ac Wireless LANs}
 %\titlenote{Produces the permission block, and copyright information}
 %\subtitle{Extended Abstract}
 %\subtitlenote{The full version of the author's guide is available as \texttt{acmart.pdf} document}
@@ -113,7 +117,7 @@
 
 % The default list of authors is too long for headers.
 \renewcommand{\shortauthors}{B. Trovato et al.}
-\renewcommand\footnotetextcopyrightpermission[1]{}
+%\renewcommand\footnotetextcopyrightpermission[1]{}
 
 \begin{abstract}
 Utilizing 2.16 GHz wide channels, 802.11ad links can provide data rates
