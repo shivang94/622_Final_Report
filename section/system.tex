@@ -44,13 +44,15 @@ enough to prevent packets from being held-up in the TCP queues or at
 any of the buffers in the lower layers of the network stack. We thus
 adopt a two-step approach, where \name: (1) stops the assignment of
 packets to subflow about to undertake scanning and (2) waits for the
-subflow-level \emph{send-queue} to be emptied out. Fig.~\ref{fig:scan_fixed} shows 
-a timeline consisting of 802.11ac scan (marked as "802.11ac scan") but with \name's 
-network scan management solution applied during the scan period. We can clearly see (compared
-to the scan period in Fig.~\ref{fig:scan_issue}) that the 802.11ad
-throughput remains unaffected during the scan interval. We repeat the
-measurements several times with and without \name-SCAN fix and found 
-that on average it improves from 700 Mbps to 1650 Mbps (\textbf{2.2x} gain).
+subflow-level \emph{send-queue} to be emptied out. We observed that
+%Fig.~\ref{fig:scan_fixed} shows 
+%a timeline consisting of 802.11ac scan (marked as "802.11ac scan") but 
+with \name's network scan management solution applied 
+%during the scan period. We can clearly see (compared
+%to the scan period in Fig.~\ref{fig:scan_issue}) that 
+the 802.11ad throughput remains unaffected during the scan interval. We repeated the
+measurements several times and found that on average it improves from 
+700 Mbps to 1650 Mbps (\textbf{2.2x} gain).
 \\
 \noindent\textbf{\name-CONTENTION} leverages our findings regarding the 
 existence of a unique MPTCP throughput-optimal ratio, given subflow throughput values. The 
