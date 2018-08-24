@@ -32,18 +32,19 @@ user-defined ratio.
 
 Fig.~\ref{fig:ratio_tput} plots the MPTCP throughput against the
 number of packets assigned to the 802.11ad subflow ($Pkts_{ad}$) out
-of every 100 packets. We vary $Pkts_{ad}$ between 5 to 95 (with a step
-of 5) to cover the entire range of possible assignment ratios. In each
-case, the remaining packets (out of 100) are assigned to the 802.11ac
-subflow ($Pkts_{ac}=100-Pkts_{ad}$). Maximum throughput of $\sim$2.1
-Gbps is achieved with $Pkts_{ad}=77$ and performance worsens as we
+of every 100 packets. 
+%We vary $Pkts_{ad}$ between 5 to 95 (with a step
+%of 5) to cover the entire range of possible assignment ratios. In each
+%case, the remaining packets (out of 100) are assigned to the 802.11ac
+%subflow ($Pkts_{ac}=100-Pkts_{ad}$).
+Maximum throughput of $\sim$2.1 Gbps is achieved with $Pkts_{ad}=77$ and performance worsens as we
 move away from this value with the worst throughput being as low as
 400 Mbps ($Pkts_{ad}=5$).
 
 We found that the stark difference in performance with different
 assignment ratios is a result of the degree to which packets arrive
-\textit{out-of-order} in the end-to-end MPTCP flow due to
-the specific distribution of traffic among the subflows.
+\textit{out-of-order} in the end-to-end MPTCP flow 
+%due tothe specific distribution of traffic among the subflows.
 A higher number of out-of-order packets can cause
 packets to be buffered in the receiver's \emph{ofo-queue} and in
 extreme cases can even result in throttling of the sender because of
@@ -51,9 +52,10 @@ limited/no space in the receiver's buffer. In fact, in
 Fig.~\ref{fig:ratio_tput_ofo_delay}, which plots the CDF of the delay
 experienced by bytes in the \emph{ofo-queue}, we observe that
 the $Pkts_{ad}=77$ value (that results in highest throughput) indeed
-yields the lowest delay. Moreover, we observe that in general the
-$Pkts_{ad}$ values that result in high delay are the ones that result
-in lower throughput and vice-versa. 
+yields the lowest delay. 
+%Moreover, we observe that in general the
+%$Pkts_{ad}$ values that result in high delay are the ones that result
+%in lower throughput and vice-versa. 
 \if 0
 We also plot the CDF of the
 occupancy of the \emph{ofo-queue} under different $Pkts_{ad}$
