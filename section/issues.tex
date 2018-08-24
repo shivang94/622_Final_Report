@@ -84,12 +84,12 @@ throughputs along with link status.
 %{\tt Failed/OK/Retrying} as reported by the 802.11ad driver. 
 Blockage is introduced at the $20^{th}$ second causing the link status to switch to fail after a
 further 2 s. Once the blockage is removed, connection at the MAC layer
-is restored at the $30^{th}$ second. We observe the following two
+is restored at the $31^{st}$ second. We observe the following two
 issues:
 
-\noindent(i) Although the 802.11ad link is restored at the $30^{th}$
+\noindent(i) Although the 802.11ad link is restored at the $31^{st}$
 second, MPTCP does not resume traffic on the 802.11ad subflow for
-another $\sim$20 seconds until the $49^{th}$ second. We found that in
+another $\sim$12 seconds until the $43^{rd}$ second. We found that in
 the case of a timeout-based loss event, TCP congestion-control sets
 the {\tt pf} flag on the socket, indicating the flow to be
 \emph{potentially failed}. The MPTCP scheduler treats subflows with

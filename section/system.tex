@@ -78,7 +78,7 @@ packets on 802.11ad subflow since the \emph{cwnd} is reported as being
 full. In order to overcome this, \name uses the TCP's window recovery
 mechanism to restore the \emph{cwnd} to the value just before loss the
 event. In contrast to Fig.~\ref{fig:blockage_tput_drop}, where MPTCP resumed traffic on the
-802.11ad subflow after a 20 s delay, with \name engaged (Fig. \ref{fig:blockage_recovery}) 
+802.11ad subflow after a 12 s delay, with \name engaged (Fig. \ref{fig:blockage_recovery}) 
 MPTCP starts using the 802.11ad interface in less than 1s after link re-establishment. This
 is a vast reduction in delay for resuming traffic on the subflow. In a
 dynamic environment, where such blockage events will occur quite
