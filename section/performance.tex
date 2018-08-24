@@ -12,11 +12,11 @@ scheduler \emph{FixedRatio} that performs packet assignment based on a
 user-defined ratio.
 \begin{figure}[t]
     \centering
-    \subfigure[Throughput vs. packet ratio] {
+    \subfigure[Throughput vs. packet ratio.] {
         \includegraphics[scale=0.2]{contention/ratio_tput_bar.pdf}
         \label{fig:ratio_tput}
     }\hfill
-    \subfigure[Delay (\emph{ofo-queue}): $Pkts_{ad}$] {
+    \subfigure[Delay (\emph{ofo-queue}): $Pkts_{ad}$.] {
         \includegraphics[scale=0.2]{contention/ratio_ofo_delay.pdf}
         \label{fig:ratio_tput_ofo_delay}
     }%\hfill
@@ -36,12 +36,12 @@ of every 100 packets.
 %case, the remaining packets (out of 100) are assigned to the 802.11ac
 %subflow ($Pkts_{ac}=100-Pkts_{ad}$).
 Maximum throughput of $\sim$2.1 Gbps is achieved with $Pkts_{ad}=77$ and performance worsens as we
-move away from this value with the worst throughput of 400 Mbps ($Pkts_{ad}=5$).
+move away from this value with the worst throughput being as low as 400 Mbps ($Pkts_{ad}=5$).
 
 We found that the stark difference in performance with different
 assignment ratios is a result of the degree to which packets arrive
-\textit{out-of-order} in the end-to-end MPTCP flow 
-%due tothe specific distribution of traffic among the subflows.
+\textit{out-of-order} in the end-to-end MPTCP flow. 
+%due to the specific distribution of traffic among the subflows.
 A higher number of out-of-order packets can cause
 packets to be buffered in the receiver's \emph{ofo-queue} and in
 extreme cases can even result in throttling of the sender because of

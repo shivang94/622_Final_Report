@@ -1,6 +1,6 @@
 We now look at more challenging scenarios where we show that the 
 default MPTCP architecture is unable to adapt, resulting in sub-optimal 
-performance which is often worse than that of SPTCP over the
+performance which is often worse than that of single path TCP (SPTCP) over the
 faster subflow.
 
 \if 0
@@ -36,7 +36,7 @@ the \emph{ofo-queue} at the receiver end. During the scan period, the packet
 scheduler, unaware of the scan, assigns packets in the same ratio as before the scan. This is 
 problematic as the receiver's packet stream now has \textit{gaps}, 
 %(missing in-sequence packets) due to stuck 802.11ac packets; these gaps are 
-preventing the receiver from delivering packets to the application 
+preventing the receiver from delivering packets to the application. 
 %until the missing packets arrive
 %or are re-transmitted over the 802.11ad interface.
 
@@ -47,10 +47,10 @@ contention with 300 Mbps TCP cross-traffic at the 30th second for 30 s. The thro
 802.11ac subflow drops by 300 Mbps to around 250 Mbps, as expected. Surprisingly, the 802.11ad subflow is also
 affected negatively during the contention period with its throughput dropping below 1200 Mbps.
 % and experiencing more variability than in the interval preceding the start of the contention period. 
-In fact, the MPTCP throughput during the contention period averages to $\sim$1450(=1200+250) Mbps (less than 802.11ad operating). 
+In fact, the MPTCP throughput during the contention period averages to $\sim$1450(=1200+250) Mbps (less than 802.11ad alone). 
 %Note that 802.11ad channel capacity is unchanged as the contention is introduced only on the 802.11ac's operating channel.
 On further investigation, we found that during the contention period the receiver advertised buffer space (\emph{recv\_win}) reduces significantly. 
-Remember that the \emph{recv\_win} is maintained at the meta-level and, although advertised on both subflows, is actually shared 
+Note that the \emph{recv\_win} is maintained at the meta-level and, although advertised on both subflows, is actually shared 
 among them. Under such a scenario, the global sequence numbers
 cannot advance, even though \emph{cwnd} allows for it,
 % since the
@@ -80,9 +80,9 @@ resulting in reduction of throughput on both interfaces.
 
 \noindent\textbf{60 GHz (802.11ad) Blockage. }
 Fig. \ref{fig:blockage_tput_drop} shows a timeline of subflow
-throughputs along with link status 
+throughputs along with link status.
 %{\tt Failed/OK/Retrying} as reported by the 802.11ad driver. 
-The blockage is introduced at the $20^{th}$ second causing the link status to switch to fail after a
+Blockage is introduced at the $20^{th}$ second causing the link status to switch to fail after a
 further 2 s. Once the blockage is removed, connection at the MAC layer
 is restored at the $30^{th}$ second. We observe the following two
 issues:
