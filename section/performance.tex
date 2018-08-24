@@ -6,11 +6,10 @@ can indeed achieve performance very close to the expected sum} (at
 least greater than 96\% and up to 99\%). We next turn our attention to
 another key MPTCP component: the \textbf{packet-scheduler},
 responsible for the distribution of application traffic among the
-subflows. To understand in detail how the traffic distribution between
+subflows. To understand how the traffic distribution between
 the subflows impacts MPTCP performance, we design an MPTCP
 scheduler \emph{FixedRatio} that performs packet assignment based on a
 user-defined ratio.
-
 \begin{figure}[t]
     \centering
     \subfigure[Throughput vs. packet ratio] {
@@ -27,9 +26,8 @@ user-defined ratio.
     %}
     \vspace{-0.2in}
     \caption{Impact of packet scheduling decisions.}
-    \vspace{-0.22in}
+    \vspace{-0.25in}
 \end{figure}
-
 Fig.~\ref{fig:ratio_tput} plots the MPTCP throughput against the
 number of packets assigned to the 802.11ad subflow ($Pkts_{ad}$) out
 of every 100 packets. 
@@ -38,8 +36,7 @@ of every 100 packets.
 %case, the remaining packets (out of 100) are assigned to the 802.11ac
 %subflow ($Pkts_{ac}=100-Pkts_{ad}$).
 Maximum throughput of $\sim$2.1 Gbps is achieved with $Pkts_{ad}=77$ and performance worsens as we
-move away from this value with the worst throughput being as low as
-400 Mbps ($Pkts_{ad}=5$).
+move away from this value with the worst throughput of 400 Mbps ($Pkts_{ad}=5$).
 
 We found that the stark difference in performance with different
 assignment ratios is a result of the degree to which packets arrive
@@ -79,8 +76,11 @@ $Pkts_{ratio}=Pkts_{ac}/Pkts_{ad}=23/77=0.29$ is nearly identical to
 the ratio of the actual individual throughputs of the two interfaces
 $Tput_{ratio}=Tput_{ac}/Tput_{ad}=500/1600=0.31$. Assigning packets in
 this very specific ratio minimizes the chance of packets arriving
-out-of-order at the meta-level MPTCP buffers/queues. Note that
+out-of-order at the meta-level MPTCP buffers/queues. 
+\if 0
+Note that
 although in-order delivery of packets within a subflow (intra-subflow)
 is guaranteed because of single path TCP (SPTCP) operation at the subflow level,
 global in-order delivery among all subflows (inter-flow) needs
 to be achieved through re-ordering at the meta-level.
+\fi
