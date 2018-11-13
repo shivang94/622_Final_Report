@@ -93,4 +93,4 @@ documents.zip: all
 
 # Swetank: swetankk@buffalo.edu
 view: $(PAPER).pdf
-	xdg-open $(PAPER).pdf &
+	open $(PAPER).pdf &

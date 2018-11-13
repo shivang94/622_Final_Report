@@ -1,15 +1,18 @@
-We first experimented with four congestion control algorithms available in the
-Linux MPTCP implementation: \emph{Cubic} (decoupled), \emph{Lia}, 
-\emph{Olia}, and \emph{Balia} under backlogged
-traffic and found that for each of the four algorithms, \textit{MPTCP
-can indeed achieve performance very close to the expected sum} (at
-least greater than 96\% and up to 99\%). We next turn our attention to
-another key MPTCP component: the \textbf{packet-scheduler},
+%We first experimented with four congestion control algorithms available in the
+%Linux MPTCP implementation: \emph{Cubic} (decoupled), \emph{Lia}, 
+%\emph{Olia}, and \emph{Balia} under backlogged
+%traffic and found that for each of the four algorithms, \textit{MPTCP
+%can indeed achieve performance very close to the expected sum} (at
+%least greater than 96\% and up to 99\%). 
+We first turn our attention to
+a key MPTCP component: the \textbf{packet-scheduler},
 responsible for the distribution of application traffic among the
-subflows. To understand how the traffic distribution between
-the subflows impacts MPTCP performance, we design an MPTCP
-scheduler \emph{FixedRatio} that performs packet assignment based on a
-user-defined ratio.
+subflows. 
+%To understand how the traffic distribution between
+%the subflows impacts MPTCP performance, we design an MPTCP
+%scheduler \emph{FixedRatio} that performs packet assignment based on a
+%user-defined ratio.
+\begin{comment}
 \begin{figure}[t]
     \centering
     \subfigure[Throughput vs. packet ratio.] {
@@ -30,26 +33,35 @@ user-defined ratio.
 \end{figure}
 Fig.~\ref{fig:ratio_tput} plots the MPTCP throughput against the
 number of packets assigned to the 802.11ad subflow ($Pkts_{ad}$) out
-of every 100 packets. 
+of every 100 packets.
+\end{comment} 
+\if 0
 %We vary $Pkts_{ad}$ between 5 to 95 (with a step
 %of 5) to cover the entire range of possible assignment ratios. In each
 %case, the remaining packets (out of 100) are assigned to the 802.11ac
 %subflow ($Pkts_{ac}=100-Pkts_{ad}$).
-Maximum throughput of $\sim$2.1 Gbps is achieved with $Pkts_{ad}=77$ and performance worsens as we
-move away from this value with the worst throughput being as low as 400 Mbps ($Pkts_{ad}=5$).
+We find that maximum throughput
+%$ of \sim$2.1 Gbps 
+is achieved with 
+%$Pkts_{ad}=77$ 
+a certain ratio and performance worsens as we
+move away from this value.
+% with the worst throughput being as low as 400 Mbps ($Pkts_{ad}=5$).
 
-We found that the stark difference in performance with different
+We found that the stark difference in performance with different % stark??
 assignment ratios is a result of the degree to which packets arrive
 \textit{out-of-order} in the end-to-end MPTCP flow. 
+\fi
 %due to the specific distribution of traffic among the subflows.
-A higher number of out-of-order packets can cause
-packets to be buffered in the receiver's \emph{ofo-queue} and in
-extreme cases can even result in throttling of the sender because of
-limited/no space in the receiver's buffer. In fact, in
-Fig.~\ref{fig:ratio_tput_ofo_delay}, which plots the CDF of the delay
-experienced by bytes in the \emph{ofo-queue}, we observe that
-the $Pkts_{ad}=77$ value (that results in highest throughput) indeed
-yields the lowest delay. 
+%A higher number of out-of-order packets can cause
+%packets to be buffered in the receiver's \emph{ofo-queue} and in
+%extreme cases can even result in throttling of the sender because of
+%limited/no space in the receiver's buffer. 
+%In fact, in
+%Fig.~\ref{fig:ratio_tput_ofo_delay}, which plots the CDF of the delay
+%experienced by bytes in the \emph{ofo-queue}, we observe that
+%the $Pkts_{ad}=77$ value (that results in highest throughput) indeed
+%yields the lowest delay. 
 %Moreover, we observe that in general the
 %$Pkts_{ad}$ values that result in high delay are the ones that result
 %in lower throughput and vice-versa. 
@@ -69,7 +81,14 @@ throughput-wise, have queue lengths smaller than the one of the $Pkts_{ad}=77$ c
 Excluding the extremes, other $Pkts_{ad}$ values show a general trend of
 having larger queues in conjunction with lower throughputs values.
 \fi
-\\
+
+We observe that the 
+\textbf{throughput-optimal ratio} is nearly identical to
+the ratio of the actual individual throughputs of the two interfaces. Assigning packets in
+this very specific ratio minimizes the chance of packets arriving
+out-of-order at the meta-level MPTCP buffers/queues and performance worsens sharply as we
+move away from this value. 
+\if 0
 \noindent\textbf{Throughput-optimal ratio.} $Pkts_{ad}=77$ results in optimal throughput as the
 the underlying packet-distribution ratio imposed by this assignment
 $Pkts_{ratio}=Pkts_{ac}/Pkts_{ad}=23/77=0.29$ is nearly identical to
@@ -77,6 +96,7 @@ the ratio of the actual individual throughputs of the two interfaces
 $Tput_{ratio}=Tput_{ac}/Tput_{ad}=500/1600=0.31$. Assigning packets in
 this very specific ratio minimizes the chance of packets arriving
 out-of-order at the meta-level MPTCP buffers/queues. 
+\fi
 \if 0
 Note that
 although in-order delivery of packets within a subflow (intra-subflow)

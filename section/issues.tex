@@ -24,13 +24,15 @@ faster subflow.
 \end{figure*}
 \fi
 
-\noindent\textbf{Network Scans. }Fig.~\ref{fig:scan_issue} shows the throughput of 802.11ad
-and 802.11ac subflows over 60 s and the scan initiated at the 30 s mark. The 802.11ac throughput 
-is cut down severely during the scan period (marked as "802.11ac scan") that lasts for 
-around 6 s, as expected.
+\noindent\textbf{Network Scans. }
+%Fig.~\ref{fig:scan_issue} shows the throughput of 802.11ad
+%and 802.11ac subflows over 60 s and the scan initiated at the 30 s mark. The 802.11ac throughput 
+During an 802.11ac scan, we observe that the 802.11ac throughput
+is cut down severely as expected.
 % effect of the network scan as the radio is unable to
 %transmit regular data frames during this period.
-However, we observe that the 802.11ad flow is also impacted negatively during this period, even though the scan takes place in the 
+However, we 
+observe that the 802.11ad flow is also impacted negatively during this period, even though the scan takes place in the 
 5 GHz band. On investigation, we observed a 6x increase in the amount of data held in 
 the \emph{ofo-queue} at the receiver end. During the scan period, the packet
 scheduler, unaware of the scan, assigns packets in the same ratio as before the scan. This is 
@@ -79,25 +81,46 @@ resulting in reduction of throughput on both interfaces.
 \fi
 
 \noindent\textbf{60 GHz (802.11ad) Blockage. }
-Fig. \ref{fig:blockage_tput_drop} shows a timeline of subflow
-throughputs along with link status.
+%Fig. \ref{fig:blockage_tput_drop} shows a timeline of subflow
+%throughputs along with link status.
 %{\tt Failed/OK/Retrying} as reported by the 802.11ad driver. 
-Blockage is introduced at the $20^{th}$ second causing the link status to switch to fail after a
-further 2 s. Once the blockage is removed, connection at the MAC layer
-is restored at the $31^{st}$ second. We observe the following two
+Blockage is introduced 
+%at the $20^{th}$ second causing the link status to switch to fail after a
+%further 2 s.
+causing the link to break. 
+Once the blockage is removed, connection at the MAC layer
+is restored 
+%at the $31^{st}$ second.
+almost immediately.
+We observe the following two
 issues:
 
-\noindent(i) Although the 802.11ad link is restored at the $31^{st}$
-second, MPTCP does not resume traffic on the 802.11ad subflow for
-another $\sim$12 seconds until the $43^{rd}$ second. We found that in
-the case of a timeout-based loss event, TCP congestion-control sets
-the {\tt pf} flag on the socket, indicating the flow to be
-\emph{potentially failed}. The MPTCP scheduler treats subflows with
-the {\tt pf} flag set as being unavailable and does not schedule any
-packets on them. TCP congestion-control, on the other hand, is waiting
-for an ACK to unset the {\tt pf} flag and enter the {\tt
-  TCP\_CA\_RECOVERY} state that can restore the \emph{cwnd} to the
-value before the loss event, but no packets are being directed to
+\noindent(i) Although the 802.11ad link is restored 
+%at the $31^{st}$ second, 
+almost immediately, 
+MPTCP does not resume traffic on the 802.11ad subflow for
+%another $\sim$12 seconds until the $43^{rd}$ second. 
+10s of seconds.
+We found that 
+%in
+%the case of a timeout-based loss event, 
+TCP congestion-control 
+%sets
+marks
+%the {\tt pf} flag on the socket, indicating 
+the flow to be
+\emph{potentially failed}. The MPTCP scheduler 
+%treats subflows with
+%the {\tt pf} flag set as being unavailable and 
+does not schedule any
+packets on it. TCP congestion-control, on the other hand, is waiting
+for an ACK to 
+%unset the {\tt pf} flag 
+unmark the flow as \emph{potentially failed} and 
+%enter the {\tt
+%  TCP\_CA\_RECOVERY} state that can restore the \emph{cwnd} to the
+%value before the loss event, 
+recover the \emph{cwnd} value but no packets are being directed to
 the 802.11ad subflow.
 % only a subflow-level re-transmission of the
 %802.11ad subflow can trigger the transmission of an ACK on the
@@ -109,9 +132,11 @@ the 802.11ad subflow.
 \noindent(ii) On
 resumption, 802.11ad flow starts with a \emph{cwnd} and
 \emph{ssthresh} that are half of their pre-loss
-values. Fig. \ref{fig:blockage_tput_drop} shows a sample timeline
-where the 802.11ad flow resumes to 1350 Mbps instead of 1650
-Mbps. 
+values. 
+%Fig. \ref{fig:blockage_tput_drop} shows a sample timeline
+%where the 802.11ad flow resumes to 1350 Mbps instead of 1650
+%Mbps. 
+This results in a return to suboptimal throughputs.
 %Note that this behavior depends on the exact specifics of the
 %TCP congestion-control state at the time it enters the recovery
 %state. 
