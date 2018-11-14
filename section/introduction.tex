@@ -50,7 +50,7 @@ to cause a large number of re-connection events.
 %enterprise settings without 60 GHz coverage.
 \end{comment}
 In this work, we tackle the challenge of supporting the multi-Gbps
-throughput provided by the 60 GHz technology while still providing
+throughput enabled by the 60 GHz technology while still providing
 the reliability of legacy WiFi, which is the key for wide-spread adoption of 60 GHz WLANs.
 % Instead of choosing 802.11ac's
 %reliability over 802.11ad's performance or vice-versa, we propose
@@ -76,14 +76,19 @@ the reliability of legacy WiFi, which is the key for wide-spread adoption of 60 
 %A critical architecture choice 
 %towards such a solution 
 %is at which layer of the protocol stack to implement such a solution.
-Specifically, we explore Multipath TCP (MPTCP), a
-transport layer protocol that uses the 802.11ad and 802.11ac interfaces simultaneously to 
-achieve higher throughput when both networks are available and seamlessly falls back to 
-802.11ac in an application-transparent manner when the 802.11ad network becomes unavailable. 
-MPTCP's design as a transport layer solution
+Specifically, we explore Multipath TCP (MPTCP), a transport layer
+protocol that uses the 802.11ad and 802.11ac interfaces simultaneously
+to achieve higher throughput when both networks are available, and
+seamlessly falls back to 802.11ac in an application-transparent manner
+when the 802.11ad network becomes unavailable. Commercial
+off-the-shelf (COTS) APs and client devices offer tri-band solutions
+with 2.4, 5, and 60 GHz interfaces and thus such an approach is
+feasible with existing hardware.
+
+%MPTCP's design as a transport layer solution
 %, as an
 %alternative to single-path TCP (SPTCP), 
-decouples it from other layers.
+%decouples it from other layers.
 % both from the
 %application layer and the IP and MAC layers.
 %; thus, a solution
@@ -103,13 +108,14 @@ addressed by any solution implemented at lower layers of the stack,
 thus avoiding an unnecessary duplication of functionality.
 \end{comment}
 
-In spite of these attractive features, using MPTCP in multi-band WLANs
-is far from straightforward. A large number of recent studies
-investigated the performance of MPTCP in scenarios combining WiFi and
-cellular (3G/LTE) networks
+Nonetheless, using MPTCP in multi-band WLANs
+is far from straightforward.
+%A large number of recent studies
+%investigated the performance of MPTCP in scenarios combining WiFi and
+%cellular (3G/LTE) networks
 %(e.g.,~\cite{raiciu:nsdi2012,saha:mobiwac2017}) 
-and showed that the
-protocol performs poorly over heterogeneous paths.
+%and showed that the
+%protocol performs poorly over heterogeneous paths.
 % due to interactions
 %among out of order TCP packets, scheduling decisions, congestion
 %control, and limited receiver buffer size.
@@ -117,18 +123,18 @@ protocol performs poorly over heterogeneous paths.
 %the large bandwidth disparity between sub-6GHz and 60 GHz WiFi, it
 %is likely that MPTCP will suffer from similar problems in these
 %networks. 
-%Recent works that studied MPTCP performance in dual band 5/60 GHz
-%WLANs~\cite{sur:mobicom2017,nguyen:vtc2017,saha:mobicomposter2017}
-%showed that using MPTCP often results in lower performance than using
-%the 802.11ad interface alone, and 
+Recent works that studied MPTCP performance in dual band 5/60 GHz
+WLANs
+showed that using MPTCP often results in lower performance than using
+the 802.11ad interface alone and 
 %The authors in~\cite{sur:mobicom2017,nguyen:vtc2017} 
-Some previous works
-even argue that the two
-radios should never be used simultaneously.
+%Some previous works
+some even argue that the two radios should never be used
+simultaneously.
 
-In contrast, to the best of our knowledge, our work is the first to 
-show that the use of MPTCP is not just a viable but even a very promising solution
-towards dual-band 5/60 GHz WLANs. 
+To the best of our knowledge, our work is the first to show that the
+use of MPTCP is not just a viable but a very promising solution
+towards dual-band 5/60 GHz WLANs.
 %We conduct an experimental
 %study using COTS APs and laptops with the goal 
 %of not only exploring
@@ -140,7 +146,7 @@ Our experimental study, using COTS APs and laptops, reveals that
 %MPTCP scheduler, while effective in scenarios
 %involving WiFi/cellular interfaces, result in suboptimal performance in 802.11ad/ac
 %scenarios, and disabling them yields near
-MPTCP can provide optimal throughputs under baseline, static scenarios.
+MPTCP provides nearly optimal performance under baseline, static scenarios -- 96-99\% of the sum of the throughputs achieved when using each of the two interfaces alone.
 \if 0
 We experimented with 
 %four 
@@ -154,10 +160,10 @@ traffic and found that for each of
 these
 algorithms, 
 \fi
-We found that
-\textit{MPTCP
-can indeed achieve performance very close to the expected sum} (at
-least greater than 96\% and up to 99\%).
+%We found that
+%\textit{MPTCP
+%can indeed achieve performance very close to the expected sum} (at
+%least greater than 96\% and up to 99\%).
 \if 0
 However, realistic dynamic environments, e.g., 802.11ac contention or 
 blockage of the 802.11ad link, 

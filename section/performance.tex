@@ -4,14 +4,11 @@
 %traffic and found that for each of the four algorithms, \textit{MPTCP
 %can indeed achieve performance very close to the expected sum} (at
 %least greater than 96\% and up to 99\%). 
-We first turn our attention to
-a key MPTCP component: the \textbf{packet-scheduler},
-responsible for the distribution of application traffic among the
-subflows. 
-%To understand how the traffic distribution between
-%the subflows impacts MPTCP performance, we design an MPTCP
-%scheduler \emph{FixedRatio} that performs packet assignment based on a
-%user-defined ratio.
+To explain the reasons for the nearly optimal performance, we turn our
+attention to a key MPTCP component: the packet-scheduler. We design an
+MPTCP scheduler that assigns packets to the two interfaces based on a
+user-defined ratio, in order to understand how the traffic
+distribution between the subflows impacts MPTCP performance.
 \begin{comment}
 \begin{figure}[t]
     \centering
@@ -81,13 +78,12 @@ throughput-wise, have queue lengths smaller than the one of the $Pkts_{ad}=77$ c
 Excluding the extremes, other $Pkts_{ad}$ values show a general trend of
 having larger queues in conjunction with lower throughputs values.
 \fi
-
-We observe that the 
-\textbf{throughput-optimal ratio} is nearly identical to
-the ratio of the actual individual throughputs of the two interfaces. Assigning packets in
-this very specific ratio minimizes the chance of packets arriving
-out-of-order at the meta-level MPTCP buffers/queues and performance worsens sharply as we
-move away from this value. 
+We observe that the throughput-optimal packet assignment ratio is
+identical to the ratio of the actual individual throughputs of the two
+interfaces. Assigning packets in this ratio minimizes the chance of
+packets arriving out-of-order at the meta-level MPTCP buffers. We also
+observe that performance worsens sharply as we move away from this
+value.
 \if 0
 \noindent\textbf{Throughput-optimal ratio.} $Pkts_{ad}=77$ results in optimal throughput as the
 the underlying packet-distribution ratio imposed by this assignment

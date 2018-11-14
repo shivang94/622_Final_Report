@@ -37,23 +37,23 @@
     \vspace{-0.2in}
 \end{figure}
 \end{comment}
-Although in static conditions everything works smoothly, realistic dynamic environments, specifically, network scans, 802.11ac contention or 
-blockage of the 802.11ad link, 
+Next, we turn our attention to dynamic environments involving network
+scans, 802.11ac contention, or blockage of the 802.11ad link. We
+observe that the default MPTCP architecture is unable to adapt,
+yielding sub-optimal performance.
 %are extremely challenging for
 %the current MPTCP architecture
-can result in severe performance degradation. We then design and implement \name, a new
-MPTCP scheduler that addresses the root-cause of the performance
-degradation.
+We then design and implement \name, a new
+MPTCP scheduler that addresses the root-cause of this performance
+degradation. \name consists of three parts:
 
-\noindent\textbf{\name-SCAN} 
-deals with the problem that during an 802.11ac scan, 802.11ad throughput also suffers severely.
-During the scan period, the packet
+\noindent\textbf{\name-SCAN}. During an 802.11ac scan, 802.11ad throughput also suffers severely, as the packet
 scheduler, unaware of the scan, assigns packets in the same ratio as before the scan.
 \name-SCAN
 arbitrates the network scan requests generated
 from the user space and disables the scheduling of packets to the
 subflow where the request has been made for the duration of the
-network scan. 
+network scan, resulting in a 2.2x throughput improvement on average. 
 %However, disabling future scheduling alone may not be
 %enough to prevent packets from being held-up in the TCP queues or at
 %any of the buffers in the lower layers of the network stack. We thus
@@ -61,7 +61,7 @@ network scan.
 We
 adopt a two-step approach, where \name: (1) stops the assignment of
 packets to subflow about to undertake scanning and (2) waits for the
-subflow-level \emph{send-queue} to be emptied out. We observed that
+subflow-level \emph{send-queue} to be emptied out. We observe that
 %Fig.~\ref{fig:scan_fixed} shows 
 %a timeline consisting of 802.11ac scan (marked as "802.11ac scan") but 
 with \name's network scan management solution applied 
@@ -69,18 +69,19 @@ with \name's network scan management solution applied
 %to the scan period in Fig.~\ref{fig:scan_issue}) that 
 the 802.11ad throughput remains unaffected during the scan interval. 
 \fi
-We repeated the
-measurements several times and observed \textbf{2.2x} performance gain on average.
+%We repeated the
+%measurements several times and observed \textbf{2.2x} performance gain on average.
 \\
-\noindent\textbf{\name-CONTENTION} deals with the problem that
+\noindent\textbf{\name-CONTENTION}. During 802.11ac contention,
 the 802.11ad subflow is also
-affected negatively during 802.11ac contention.
+affected negatively.
 \name-CONTENTION leverages our findings regarding the 
-existence of a unique MPTCP throughput-optimal ratio, for given subflow
-throughputs. The reaction to contention is to set
-the packet-assignment ratio to match the ratio of the throughput of
-802.11ad and 802.11ac flows, accounting for the drop in 802.11ac
-throughput due to contention. 
+existence of a unique MPTCP throughput-optimal ratio, for given
+subflow throughputs. The reaction to contention is to set the
+packet-assignment ratio to match the ratio of the throughputs of the
+802.11ad and 802.11ac subflows, accounting for the drop in 802.11ac
+throughput due to contention. This leads to significant throughput
+gains which increase with the amount of cross-traffic.
 %We test our solution under different
 %amounts of contention (from 100 Mbps to 400
 %Mbps). Fig.~\ref{fig:contention_barplot} shows the expected sum, after
@@ -91,10 +92,9 @@ throughput due to contention.
 %throughput is close to the expected sum while the default scheduler's
 %throughput can be much lower.
 \\
-\noindent\textbf{\name-BLOCKAGE} deals with a couple of issues once blockage is removed:
-\noindent(i) Although the 802.11ad link is restored 
+\noindent\textbf{\name-BLOCKAGE}. Although the 802.11ad link is restored 
 %at the $31^{st}$ second, 
-almost immediately, 
+almost immediately after blockage is removed, 
 MPTCP does not resume traffic on the 802.11ad subflow for
 %another $\sim$12 seconds until the $43^{rd}$ second. 
 10s of seconds.
@@ -127,25 +127,24 @@ the 802.11ad subflow.
 %blockage period can lead to excessively high retransmission timeouts,
 %and consequently to long delays before an ACK is received.
 \fi
-\noindent(ii) On
-resumption, 802.11ad flow starts with a \emph{cwnd} and
+Additionally, on
+resumption, the 802.11ad subflow often starts with a \emph{cwnd} and
 \emph{ssthresh} that are half of their pre-loss
-values. 
+values, yielding suboptimal throughput. 
 %Fig. \ref{fig:blockage_tput_drop} shows a sample timeline
 %where the 802.11ad flow resumes to 1350 Mbps instead of 1650
 %Mbps. 
-This results in a return to suboptimal throughputs.
+%This results in a return to suboptimal throughputs.
 %Note that this behavior depends on the exact specifics of the
 %TCP congestion-control state at the time it enters the recovery
 %state. 
 %Nonetheless, we observed this quite often and it does have a
 %non-negligible impact on throughput.
 \name-BLOCKAGE reduces the delay in resuming traffic over the 802.11ad
-subflow 
-%by resetting the {{\tt pf}} flag to allow for traffic to be
-%scheduled on the 802.11ad subflow. 
-and uses the TCP's window recovery
-mechanism to restore the \emph{cwnd} to the value just before loss the
+subflow to less than 1 s
+by resetting the {{\tt pf}} flag to allow for traffic to be
+scheduled on the 802.11ad subflow and uses the TCP's window recovery
+mechanism to restore the \emph{cwnd} (and consequently throughput) to the value just before loss the
 event. 
 %However, we found that this alone
 %was not enough to resume the traffic flow on the 802.11ad
@@ -162,10 +161,10 @@ event.
 \fi 
 %In contrast to Fig.~\ref{fig:blockage_tput_drop}, where MPTCP resumed traffic on the
 %802.11ad subflow after a 12 s delay,
-With \name engaged 
+%With \name engaged 
 %(Fig. \ref{fig:blockage_recovery}) 
-MPTCP starts using the 802.11ad interface in less than 1s after link re-establishment. This
-is a vast reduction in delay for resuming traffic on the subflow. In a
-dynamic environment, where such blockage events will occur quite
+%MPTCP starts using the 802.11ad interface in less than 1s after link re-establishment. This
+%is a vast reduction in delay for resuming traffic on the subflow.
+In a dynamic environment, where such blockage events will occur quite
 frequently, \name's gains would translate into a significant
 improvement in user-experience.
