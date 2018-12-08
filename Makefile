@@ -93,4 +93,10 @@ documents.zip: all
 
 # Swetank: swetankk@buffalo.edu
 view: $(PAPER).pdf
-	xdg-open $(PAPER).pdf &
+	#UNAME_S := $(shell uname -s)
+	#ifeq ($(UNAME_S), Linux)
+	open $(PAPER).pdf &
+    	#endif
+    	#ifeq ($(UNAME_S), Darwin)
+	###	open $(PAPER).pdf &
+    	#endif
