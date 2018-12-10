@@ -1,57 +1,13 @@
-\begin{comment}
-Millimeter-wave (mmWave) wireless is fast emerging as the prime
-candidate technology for providing multi-Gbps data rates in future wireless networks.
-%, WLANs and for fixed wireless access.
-% Although
-%different parts of the mmWave spectrum (both licensed and unlicensed)
-%are currently being explored by the industry, 
-The IEEE 802.11ad
-standard 
-%and its successor 802.11ay specifically target indoor
-%WLANs. 802.11ad 
-%utilizes the almost 7 GHz of unlicensed spectrum
-%centered around 60 GHz to 
-provides data rates of up to 6.7 Gbps. 
-It
-achieves this multi-fold increase over legacy WiFi through
-2 GHz-wide channels.
-%ization (2.16 GHz, 13.5x wider compared to the 160
-%MHz of 802.11ac) and directional antennas.
-%Multiple commercial devices (both APs and laptops) supporting the standard have been
-%released over the past few years. 
-%and the technology is already making
-%its way into smartphones. ~\cite{peraso_802.11ad,asus_802.11ad}.
-Nonetheless, communication at mmWave frequencies faces fundamental
-challenges due to the high propagation and penetration loss. %Although 
-The use of directional transmissions 
-%overcomes the severe attenuation, it 
-makes
-links susceptible to disruption by human blockage and client
-mobility. 
-%While several recent works have explored ways of dealing with blockage and mobility, e.g., by
-%proposing efficient beamsteering techniques, link outages remain a
-%major challenge preventing 802.11ad from providing the seamless
-%connectivity that legacy WiFi does. 
-Even if future PHY/MAC improvements may result in faster beam steering, any realistic
-indoor scenario is expected to contain enough dynamism
-%, in terms of
-%environmental and device mobility, 
-to cause a large number of re-connection events.
-% which will hurt application performance and
-%result in poor user experience.
-% This issue is critical as
-%applications that are considered prime targets for the adoption of 
-%60 GHz technology typically cannot work with unreliable links that fail
-%frequently. 
-%In addition, due to the mmWave channel characteristics, providing full coverage at 60 GHz 
-%is extremely difficult and realistic deployments will most likely have some coverage gaps.
-%be ``spotty'', at least in the near future. As 60 GHz APs will be
-%with incremental deployment, one can expect to find areas in large
-%enterprise settings without 60 GHz coverage.
-\end{comment}
-In this work, we tackle the challenge of supporting the multi-Gbps
-throughput enabled by the 60 GHz technology while still providing
-the reliability of legacy WiFi, which is the key for wide-spread adoption of 60 GHz WLANs.
+In this work, we accurately localize and track a user's position in 
+a given space using 60GHz radios.
+The multi-Gbps throughput potential of 60 GHz wireless interfaces make them an 
+attractive technology for next-generation gigabit WLANs.
+Previous works have focused on localizing the user either using legacy
+WiFi (2.4/5 GHz) which are not very accurate or using IR sensors, LEDs, cameras which requires installation of 
+additional hardware.
+In this work, we show that by just using PHY layer information i.e. Signal-to-Noise ratio (SNR) which can be
+obtained without any modifications to the firmware,
+we can accurately localize the user and also track their motion.
 % Instead of choosing 802.11ac's
 %reliability over 802.11ad's performance or vice-versa, we propose
 %engaging both technologies simultaneously. 
@@ -76,6 +32,7 @@ the reliability of legacy WiFi, which is the key for wide-spread adoption of 60 
 %A critical architecture choice 
 %towards such a solution 
 %is at which layer of the protocol stack to implement such a solution.
+
 Specifically, we explore Multipath TCP (MPTCP), a transport layer
 protocol that uses the 802.11ad and 802.11ac interfaces simultaneously
 to achieve higher throughput when both networks are available, and
@@ -95,18 +52,6 @@ feasible with existing hardware.
 %built around MPTCP can evolve independently from and work with any
 %future 802.11 standards in the 5 GHz or 60 GHz space (e.g., 802.11ax
 %or 802.11ay, respectively). 
-\begin{comment}
-In contrast, solutions that try to achieve
-a similar functionality at the MAC or lower layers, such as 802.11ad's
-Fast Session Transfer (FST)~\cite{80211ad}, are invariably tied to the
-802.11 specifications and hence are not future proof. More
-importantly, MPTCP by design provides the same guarantees to
-applications as single-path TCP (SPTCP) in terms of packet delivery and
-includes mechanisms to deal with issues such as packet re-ordering
-among different interfaces that would otherwise need to be
-addressed by any solution implemented at lower layers of the stack,
-thus avoiding an unnecessary duplication of functionality.
-\end{comment}
 
 Nonetheless, using MPTCP in multi-band WLANs
 is far from straightforward.
