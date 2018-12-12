@@ -3,149 +3,17 @@ a given space using 60GHz radios.
 The multi-Gbps throughput potential of 60 GHz wireless interfaces make them an 
 attractive technology for next-generation gigabit WLANs.
 Previous works have focused on localizing the user either using legacy
-WiFi (2.4/5 GHz) which are not very accurate or using IR sensors, LEDs, cameras which requires installation of 
+WiFi (2.4/5 GHz) which are not very accurate due to the presence of extensive multipath or using IR sensors, 
+LEDs, cameras which requires installation of 
 additional hardware.
 In this work, we show that by just using PHY layer information i.e. Signal-to-Noise ratio (SNR) which can be
 obtained without any modifications to the firmware,
 we can accurately localize the user and also track their motion.
-% Instead of choosing 802.11ac's
-%reliability over 802.11ad's performance or vice-versa, we propose
-%engaging both technologies simultaneously. 
-%Using both 802.11ad and
-%802.11ac interfaces simultaneously not only offers reliability by
-%providing a fall-back option in case 60 GHz connectivity
-%becomes unavailable but also allows a client to theoretically obtain
-%the sum of the data rates offered by the two technologies. 
-%Recent commercial 802.11ad NICs~\cite{intel11ad, qca11ad} include an 802.11ac radio on the same chipset. 
-%Commercial off-the-shelf (COTS)
-%APs as well as client devices offer tri-band solutions with 2.4, 5, and 60 GHz
-%interfaces and thus such a multi-band approach is
-%feasible with existing hardware.
-% without any extra hardware.
-%However, realizing such a combined 802.11ad-ac interface, made up of
-%two rather heterogeneous technologies, comes with it's own set of
-%challenges. For instance, such a bundling of interfaces needs to done
-%in a manner that is transparent to user applications without requiring
-%any changes to them. Also, since most applications rely on TCP as the
-%choice of transport protocol, any proposed solution needs to offer
-%reliable in-order-delivery end-to-end data transfer service.
-%A critical architecture choice 
-%towards such a solution 
-%is at which layer of the protocol stack to implement such a solution.
 
-Specifically, we explore Multipath TCP (MPTCP), a transport layer
-protocol that uses the 802.11ad and 802.11ac interfaces simultaneously
-to achieve higher throughput when both networks are available, and
-seamlessly falls back to 802.11ac in an application-transparent manner
-when the 802.11ad network becomes unavailable. Commercial
-off-the-shelf (COTS) APs and client devices offer tri-band solutions
-with 2.4, 5, and 60 GHz interfaces and thus such an approach is
-feasible with existing hardware.
+We use a probabilistic model to determine the user's location based on the SNR values obtained. 
+Our probabilistic model is based on particle filters which results in a non-parametric distribution
+and hence can represent a broad set of distributions rather than just a single distribution (as is the case in
+parametric distribution methods). Our model results in a set of locations/paths and their probabilities.
 
-%MPTCP's design as a transport layer solution
-%, as an
-%alternative to single-path TCP (SPTCP), 
-%decouples it from other layers.
-% both from the
-%application layer and the IP and MAC layers.
-%; thus, a solution
-%built around MPTCP can evolve independently from and work with any
-%future 802.11 standards in the 5 GHz or 60 GHz space (e.g., 802.11ax
-%or 802.11ay, respectively). 
-
-Nonetheless, using MPTCP in multi-band WLANs
-is far from straightforward.
-%A large number of recent studies
-%investigated the performance of MPTCP in scenarios combining WiFi and
-%cellular (3G/LTE) networks
-%(e.g.,~\cite{raiciu:nsdi2012,saha:mobiwac2017}) 
-%and showed that the
-%protocol performs poorly over heterogeneous paths.
-% due to interactions
-%among out of order TCP packets, scheduling decisions, congestion
-%control, and limited receiver buffer size.
-%Given
-%the large bandwidth disparity between sub-6GHz and 60 GHz WiFi, it
-%is likely that MPTCP will suffer from similar problems in these
-%networks. 
-Recent works that studied MPTCP performance in dual band 5/60 GHz
-WLANs
-showed that using MPTCP often results in lower performance than using
-the 802.11ad interface alone and 
-%The authors in~\cite{sur:mobicom2017,nguyen:vtc2017} 
-%Some previous works
-some even argue that the two radios should never be used
-simultaneously.
-
-To the best of our knowledge, our work is the first to show that the
-use of MPTCP is not just a viable but a very promising solution
-towards dual-band 5/60 GHz WLANs.
-%We conduct an experimental
-%study using COTS APs and laptops with the goal 
-%of not only exploring
-%the performance of MPTCP in dual-band 802.11ad/ac WLANs, but also
-%of understanding the causes of the observed performance and uncovering the
-%pitfalls of the current MPTCP implementation in this new setting.
-Our experimental study, using COTS APs and laptops, reveals that 
-%a few recently introduced optimizations in the
-%MPTCP scheduler, while effective in scenarios
-%involving WiFi/cellular interfaces, result in suboptimal performance in 802.11ad/ac
-%scenarios, and disabling them yields near
-MPTCP provides nearly optimal performance under baseline, static scenarios -- 96-99\% of the sum of the throughputs achieved when using each of the two interfaces alone.
-\if 0
-We experimented with 
-%four 
-different congestion control algorithms 
-%available in the
-%Linux MPTCP implementation: \emph{Cubic} (decoupled), \emph{Lia}, 
-%\emph{Olia}, and \emph{Balia} 
-under backlogged
-traffic and found that for each of 
-%the four 
-these
-algorithms, 
-\fi
-%We found that
-%\textit{MPTCP
-%can indeed achieve performance very close to the expected sum} (at
-%least greater than 96\% and up to 99\%).
-\if 0
-However, realistic dynamic environments, e.g., 802.11ac contention or 
-blockage of the 802.11ad link, 
-%are extremely challenging for
-%the current MPTCP architecture
-can result in severe performance degradation. We then design and implement \name, a new
-MPTCP scheduler that addresses the root-cause of the performance
-degradation.
-\fi
-% and allows MPTCP to achieve near-optimal throughput under
-%a wide variety of dynamic use cases.
-\if 0
-Our evaluation in real
-indoor WLAN scenarios shows that \name can achieve up to \textbf{2.5x}
-throughput improvement and can reduce application-level delay by several
-10s of seconds compared to the default MPTCP.
-\fi
-%We show that how MPTCP's architecture and optimizations introduced to
-%it over the years, often results in scenarios where MPTCP performs
-%sub-optimally and could even result in performance worse than using
-%SPTCP over the fastest subflow.
-\if 0
-Our work makes the following contributions:
-\\
-(1) We conduct an extensive measurement study to understand MPTCP
-performance in dual-band 802.11ad/ac WLANs with COTS devices under
-realistic settings.
-%\\
-%(2) We develop a comprehensive set of tools to instrument MPTCP
-%components, like the queues and scheduler, that help us understand the
-%root-cause of the performance issues. We will make these tools
-%publicly available for others to further improve MPTCP in new settings.
-\\
-(2) We design and implement \name, a novel MPTCP scheduler, that
-addresses the identified challenges.
-\\
-(3) We evaluate \name in realistic WLAN settings and show that it
-offers significant throughput and delay improvements over the default
-MPTCP scheduler.
-\fi
+We evaluate the system on a set of randomly generated locations and paths from the given space and
+achieve an x\% accuracy in detecting the locations and a y\% accuracy in detecting the path of a user.
